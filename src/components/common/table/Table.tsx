@@ -19,29 +19,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "n@/components/ui/select";
-import { ProductSortField } from "n@/types/product";
-
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-interface AgGridTableProps<T> {
+interface AgGridTableProps<T, TSortField extends string = string> {
   rowData: T[];
   columnDefs: ColDef<T>[];
   loading?: boolean;
   totalRows: number;
   pageSize: number;
   currentPage: number;
-  sortBy?: ProductSortField;
+  sortBy?: TSortField;
   sortOrder?: "asc" | "desc";
   onGridReady?: (event: GridReadyEvent<T>) => void;
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
   onSortChanged?: (
-    sortBy: ProductSortField | null,
+    sortBy: TSortField | null,
     order: "asc" | "desc" | null
   ) => void;
 }
 
-export default function DataTable<T>({
+export default function DataTable<T, TSortField extends string = string>({
   rowData,
   columnDefs,
   loading = false,
@@ -54,7 +52,7 @@ export default function DataTable<T>({
   onPageChange,
   onPageSizeChange,
   onSortChanged,
-}: AgGridTableProps<T>) {
+}: AgGridTableProps<T, TSortField>) {
   const totalPages = Math.max(1, Math.ceil(totalRows / pageSize));
   const safeCurrentPage = Math.min(currentPage, totalPages);
   const startRow =
@@ -76,7 +74,7 @@ export default function DataTable<T>({
     }
 
     onSortChanged(
-      sortedColumn.colId as ProductSortField,
+      sortedColumn.colId as TSortField,
       sortedColumn.sort as "asc" | "desc"
     );
   };
