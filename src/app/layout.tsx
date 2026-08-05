@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "n@/providers/ReactQueryProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -9,7 +10,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "CRUD App",
-  description: "CRUD Application",
+  description: "Small CRUD Application using next",
 };
 
 export default function RootLayout({
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} antialiased`}>{children}</body>
+      <body className={`${dmSans.variable} antialiased`}>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+      </body>
     </html>
   );
 }
