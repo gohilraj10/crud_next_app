@@ -30,8 +30,8 @@ export default function RecipeCard({
       href={withRecipeListQuery(`/recipes/${recipe.id}`, listQueryString)}
       className="group block h-full"
     >
-      <Card className="h-full transition-shadow hover:shadow-md">
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
+      <Card className="h-full overflow-hidden rounded-xl border-border/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-border hover:shadow-md">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
           <Image
             src={recipe.image}
             alt={recipe.name}

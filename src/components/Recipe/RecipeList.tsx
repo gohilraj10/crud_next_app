@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 
 import RecipeCard from "./RecipeCard";
 import RecipePagination from "./RecipePagination";
-import { Input } from "n@/components/ui/input";
+import PageHeader from "n@/components/common/PageHeader";
+import PageSearch from "n@/components/common/PageSearch";
 import { Skeleton } from "n@/components/ui/skeleton";
 import { useGetRecipes } from "n@/hooks/recipeHooks/useGetRecipes";
 import { useRecipeListParams } from "n@/hooks/useRecipeListParams";
@@ -32,12 +33,10 @@ function RecipeSearchInput({
   }, [searchInput, initialQuery, onSearch]);
 
   return (
-    <Input
-      type="search"
+    <PageSearch
       placeholder="Search recipes..."
       value={searchInput}
-      onChange={(event) => setSearchInput(event.target.value)}
-      className="max-w-md border-border"
+      onChange={setSearchInput}
     />
   );
 }
@@ -72,29 +71,29 @@ function RecipeListContent() {
 
   return (
     <section className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Recipes</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Browse and discover recipes from around the world.
-          </p>
-        </div>
-      </div>
-
-      <RecipeSearchInput
-        key={listState.q}
-        initialQuery={listState.q}
-        onSearch={(q) => updateListState({ q })}
+      <PageHeader
+        title="Recipes"
+        description="Browse and discover recipes from around the world."
       />
 
+      <div className="rounded-xl border border-border/60 bg-card p-4 shadow-sm">
+        <RecipeSearchInput
+          key={listState.q}
+          initialQuery={listState.q}
+          onSearch={(q) => updateListState({ q })}
+        />
+      </div>
+
       {isError && (
-        <p className="text-destructive">Failed to load recipes. Please try again.</p>
+        <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
+          Failed to load recipes. Please try again.
+        </div>
       )}
 
       {showLoading ? (
         <RecipeGridSkeleton />
       ) : recipes.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border p-12 text-center">
+        <div className="rounded-xl border border-dashed border-border/80 bg-card/50 p-12 text-center">
           <p className="text-muted-foreground">
             {listState.q
               ? `No recipes found for "${listState.q}".`

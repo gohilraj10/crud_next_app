@@ -7,7 +7,8 @@ import { toast } from "sonner";
 import { getProductColumns } from "./productColumn";
 import DeleteProductDialog from "./DeleteProductDialog";
 import { Button } from "n@/components/ui/button";
-import { Input } from "n@/components/ui/input";
+import PageHeader from "n@/components/common/PageHeader";
+import PageSearch from "n@/components/common/PageSearch";
 import DataTable from "n@/components/common/table/Table";
 import { useDeleteProduct } from "n@/hooks/productHooks/useDeleteProduct";
 import { useGetProduct } from "n@/hooks/productHooks/useGetProduct";
@@ -37,12 +38,10 @@ function ProductSearchInput({
   }, [searchInput, initialQuery, onSearch]);
 
   return (
-    <Input
-      type="search"
+    <PageSearch
       placeholder="Search products..."
       value={searchInput}
-      onChange={(event) => setSearchInput(event.target.value)}
-      className="max-w-md border-border"
+      onChange={setSearchInput}
     />
   );
 }
@@ -85,25 +84,29 @@ function ProductListContent() {
 
   return (
     <section className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold">Products</h1>
-
-        <Link
-          href={
-            listQueryString
-              ? `/products/add?${listQueryString}`
-              : "/products/add"
-          }
-        >
-          <Button>Add Product</Button>
-        </Link>
-      </div>
-
-      <ProductSearchInput
-        key={listState.q}
-        initialQuery={listState.q}
-        onSearch={(q) => updateListState({ q })}
+      <PageHeader
+        title="Products"
+        description="Manage your product catalog with search, sorting, and pagination."
+        action={
+          <Link
+            href={
+              listQueryString
+                ? `/products/add?${listQueryString}`
+                : "/products/add"
+            }
+          >
+            <Button>Add Product</Button>
+          </Link>
+        }
       />
+
+      <div className="rounded-xl border border-border/60 bg-card p-4 shadow-sm">
+        <ProductSearchInput
+          key={listState.q}
+          initialQuery={listState.q}
+          onSearch={(q) => updateListState({ q })}
+        />
+      </div>
 
       <DataTable
         rowData={data?.products ?? []}

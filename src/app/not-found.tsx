@@ -1,26 +1,25 @@
 import Link from "next/link";
 
+import { Button } from "n@/components/ui/button";
+
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-background px-6">
-      <div className="max-w-md text-center">
-        <h1 className="text-8xl font-bold text-primary">404</h1>
+    <section className="flex min-h-[60vh] flex-col items-center justify-center">
+      <div className="max-w-md rounded-2xl border border-border/60 bg-card p-10 text-center shadow-sm">
+        <p className="text-7xl font-bold text-primary">404</p>
 
-        <h2 className="mt-4 text-3xl font-semibold text-foreground">
+        <h1 className="mt-4 text-2xl font-semibold tracking-tight">
           Page Not Found
-        </h2>
+        </h1>
 
-        <p className="mt-3 text-secondary">
-          Sorry, the page you are looking for does not exist..
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Sorry, the page you are looking for does not exist.
         </p>
 
-        <Link
-          href="/"
-          className="mt-8 inline-flex rounded-lg bg-primary px-6 py-3 text-white transition-colors hover:opacity-90"
-        >
-          Go Back Home
+        <Link href="/" className="mt-8 inline-block">
+          <Button>Go Back Home</Button>
         </Link>
       </div>
-    </main>
+    </section>
   );
 }
