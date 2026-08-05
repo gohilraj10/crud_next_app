@@ -22,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${dmSans.variable} antialiased`}>
+    <html lang="en" className={`${dmSans.variable} ${dmSans.className}`}>
+      <body className="antialiased">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <ReactQueryProvider>
             <Applayout>{children}</Applayout>
