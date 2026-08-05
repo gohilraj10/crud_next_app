@@ -1,3 +1,13 @@
+import { Suspense } from "react";
+
+import RecipeList from "n@/components/Recipe/RecipeList";
+
 export default function RecipesPage() {
-  return <h1>Recipes</h1>;
+  return (
+    <Suspense
+      fallback={<p className="text-muted-foreground">Loading recipes...</p>}
+    >
+      <RecipeList />
+    </Suspense>
+  );
 }
