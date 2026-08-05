@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import ReactQueryProvider from "n@/providers/ReactQueryProvider";
 import Applayout from "n@/components/Applayout/Applayout";
+import { Toaster } from "n@/components/ui/sonner";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -22,9 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dmSans.variable} antialiased`}>
-        <ReactQueryProvider>
-          <Applayout>{children}</Applayout>
-        </ReactQueryProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <ReactQueryProvider>
+            <Applayout>{children}</Applayout>
+            <Toaster />
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
